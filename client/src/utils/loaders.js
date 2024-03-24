@@ -14,7 +14,6 @@ export const DonordashboardLoader = async () => {
 export const BBDashboardLoader = async () => {
   try {
     const { data } = await customFetchBloodbank.get("/update/donors");
-    console.log(data);
     return data;
   } catch (error) {
     return redirect("/blood-bank/login");

@@ -23,14 +23,14 @@ const BankRegister = () => {
           <div className=" sm:grid-cols-1 grid gap-4">
             {/* Username Input */}
 
-            <FormInput type="text" label="name" name="name" />
+            <FormInput type="text" label="name" name="name"  />
             {/* Email Input */}
 
             <FormInput type="email" label="email" name="email" required />
 
             <FormInput type="password" label="password" name="password" />
           </div>
-          <FormInput type="text" label="address" name="address" size="w-full" />
+          <FormInput type="text" label="address" name="address" size="w-full"/>
           <div className="mt-6">
             <SubmitBtn text="Register" />
           </div>

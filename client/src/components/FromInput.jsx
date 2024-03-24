@@ -8,11 +8,12 @@ const FormInput = ({
   size,
   maxLength,
   required,
+
 }) => {
   return (
     <div className="form-control">
       <label className="label">
-        <span className="label-text font-semibold capitalize">{label}</span>
+        <span className={`label-text font-semibold  capitalize`}>{label}</span>
       </label>
       <input
         type={type}
