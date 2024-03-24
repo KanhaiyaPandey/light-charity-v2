@@ -1,13 +1,23 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const Donors = () => {
   const data = useLoaderData();
 
+  if(data.donors.length === 0){
+    return(
+      <div className=" flex flex-col gap-6 items-center justify-center w-full h-full">
+          <h1 className="text-5xl font-bold"> No Donors yet</h1>
+           <Link to="add-donor" className=" btn text-xl"> Add donor +</Link>
+      </div>
+    )
+  }
+
+  else{
   return (
     <div className=" flex items-center justify-center w-full h-auto">
       <div className="overflow-x-auto">
         <table className="table table-md">
-          <thead className="">
+          <thead className=" text-lg text-base-900 capitalize">
             <tr>
               <th></th>
               <th>Name</th>
@@ -35,6 +45,7 @@ const Donors = () => {
       </div>
     </div>
   );
+            }
 };
 
 export default Donors;
