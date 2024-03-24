@@ -17,6 +17,15 @@ export const getDonors = async (req, res) => {
 
       throw new NotFoundError("Blood Bank not found");
     }
+};
+
+export const getBloodBank = async (req, res) =>{
+  const bloodBank = await BloodBank.findById(req.user.userId);
+  if (bloodBank) {
+    res.status(200).json({ bloodBank });
+  } else {
+    throw new NotFoundError("Blood Bank not found");
+  }
 }
 
 
