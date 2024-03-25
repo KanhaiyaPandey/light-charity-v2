@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
-import Donor from "../../../models/Donor";
+
 
 const Donors = () => {
   const data = useLoaderData();
@@ -26,7 +26,7 @@ const Donors = () => {
               <th>number</th>
               <th>location</th>
               <th>Blood Group</th>
-              <th>Donated</th>
+              <th>Donated (bangs)</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -34,7 +34,7 @@ const Donors = () => {
           {data.bloodBank.donors.slice().reverse().map((donor, index) => (
            <tr key={index}>
            <th>{index + 1}</th>
-           <td>{donor.name}</td>
+           <td className=" capitalize">{donor.name}</td>
            <td>{donor.email}</td>
            <td>{donor.number}</td>
            <td>{donor.address}</td>

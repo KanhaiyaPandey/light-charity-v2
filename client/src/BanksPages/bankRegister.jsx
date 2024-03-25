@@ -29,8 +29,10 @@ const BankRegister = () => {
             <FormInput type="email" label="email" name="email" required />
 
             <FormInput type="password" label="password" name="password" />
+
+            <FormInput type="text" label="address" name="address" size="w-full"/>
           </div>
-          <FormInput type="text" label="address" name="address" size="w-full"/>
+       
           <div className="mt-6">
             <SubmitBtn text="Register" />
           </div>

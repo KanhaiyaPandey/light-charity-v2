@@ -60,6 +60,19 @@ export const update = async (req, res) => {
  
 );
 
+    const donatedAt = {
+        bloodbank: bloodbank.name,
+        donated: quantity,
+        date: formattedDate
+    }
+
+  await Donor.findOneAndUpdate(
+  { _id: existingDonor._id},
+  { $push: { 'donatedAt': donatedAt } },  
+  { new: true }
+
+   );
+
     res.status(StatusCodes.OK).json({ msg: 'Inventory Updated' ,bloodbank })
 
 };
@@ -74,24 +87,36 @@ export const createDonor = async (req, res) => {
     
       const { email, bloodGroup, donated, number } = req.body;
       const existingDonor = await Donor.findOne({ email });
+
+      const donorToadd = req.body;
+      var date = new Date();
+
+      // date formate
+
+      var formattedDate = date.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+
+      donorToadd.date = formattedDate;
+
+
+      // if donor already have an account
+
+
       if (existingDonor) {
-        const donorToadd = req.body;
-        var date = new Date();
 
-        var formattedDate = date.toLocaleDateString('en-UK', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        });
 
-        donorToadd.date = formattedDate;
+        // pushing the donor on blood-bank's donors list
         
-
         await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
         { $push: { donors: donorToadd } }, 
         { new: true }
       );
+
+      // incrementing the inventory with respected blood group 
 
       const bloodbank = await BloodBank.findOneAndUpdate(
         { _id: req.user.userId, 'inventory.bloodGroup': bloodGroup },
@@ -99,22 +124,36 @@ export const createDonor = async (req, res) => {
         { new: true }
     );
 
+     
+    // incrementing the donor's donated amount 
+
     const donor = await Donor.findOneAndUpdate(
       { _id: existingDonor._id},
       { $inc: { 'donated': donated } }, 
       { new: true }
-  );
+  );  
+
+  // pushing the blood-bank , date and amount to donor's donatedAt list
+      
+     const donatedAt = {
+      bloodbank: bloodbank.name,
+      donated: donated,
+     date: formattedDate
+   }
+   
+  await Donor.findOneAndUpdate(
+    { _id: existingDonor._id},
+    { $push: { 'donatedAt': donatedAt } },  
+    { new: true }
+  
+     );
 
       res.status(StatusCodes.OK).json({ msg: 'donor added to donors list'})
 
-      }else{
-      const donorToadd = req.body;
-      var date = new Date();
-      var formattedDate = date.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
+   }else{
+
+      // if donor does not have account 
+
       donorToadd.date = formattedDate;
         await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
@@ -123,12 +162,14 @@ export const createDonor = async (req, res) => {
       );
 
       
+      // creation of donor
 
       req.body.password = number;
       const hashedPassword = await hashPassword(req.body.password);
       req.body.password = hashedPassword;
       const donor = await Donor.create(req.body);
 
+      //  inc the inventory
 
       const bloodbank = await BloodBank.findOneAndUpdate(
         { _id: req.user.userId, 'inventory.bloodGroup': bloodGroup },
@@ -136,6 +177,21 @@ export const createDonor = async (req, res) => {
         { new: true }
     );
 
+   // pushing the blood-bank , date and amount to donor's donatedAt list
+             
+    const donatedAt = {
+      bloodbank: bloodbank.name,
+      donated: donated,
+      date: formattedDate
+  }
+  
+        
+    await Donor.findOneAndUpdate(
+      { _id: donor._id},
+      { $push: { 'donatedAt': donatedAt } },  
+      { new: true }
+    
+       );
 
       res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list'});
     }

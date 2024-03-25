@@ -1,7 +1,10 @@
 
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useLoaderData } from 'react-router-dom';
 
 const Inventory = () => {
+  const data = useLoaderData();
+  console.log(data);
   // const inventoryData = [
   //   { bloodType: "A+", units: 25 },
   //   { bloodType: "B+", units: 30 },
@@ -22,7 +25,7 @@ const Inventory = () => {
       height={500}
       xAxis={[{ data: ['A+', "A-", "O+", "O-", "AB+", "AB-", "B+", "B-"], 
       scaleType: 'band',
-      axisLabel: { style: { fontSize: 100, color: 'White' } },
+      axisLabel: { style: { fontSize: 100, color: '#fffff' } },
      }]}
       margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
 
