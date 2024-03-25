@@ -76,7 +76,16 @@ export const createDonor = async (req, res) => {
       const existingDonor = await Donor.findOne({ email });
       if (existingDonor) {
         const donorToadd = req.body;
-        donorToadd.date = new Date();
+        var date = new Date();
+
+        var formattedDate = date.toLocaleDateString('en-UK', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+
+        donorToadd.date = formattedDate;
+        
 
         await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
@@ -96,11 +105,17 @@ export const createDonor = async (req, res) => {
       { new: true }
   );
 
-      res.status(StatusCodes.OK).json({ msg: 'donor added to donors list' ,bloodbank})
+      res.status(StatusCodes.OK).json({ msg: 'donor added to donors list'})
 
       }else{
       const donorToadd = req.body;
-      donorToadd.date = new Date();
+      var date = new Date();
+      var formattedDate = date.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+      donorToadd.date = formattedDate;
         await BloodBank.findOneAndUpdate(
         { _id: req.user.userId }, 
         { $push: { donors: donorToadd } }, 
@@ -122,7 +137,7 @@ export const createDonor = async (req, res) => {
     );
 
 
-      res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list' ,bloodbank});
+      res.status(StatusCodes.OK).json({ msg: 'donor registered successfully and added to donors list'});
     }
       
   };

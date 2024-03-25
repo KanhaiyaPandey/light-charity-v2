@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
+import Donor from "../../../models/Donor";
 
 const Donors = () => {
   const data = useLoaderData();
@@ -24,8 +25,9 @@ const Donors = () => {
               <th>email</th>
               <th>number</th>
               <th>location</th>
-              <th>Last Donated</th>
+              <th>Blood Group</th>
               <th>Donated</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -36,8 +38,9 @@ const Donors = () => {
            <td>{donor.email}</td>
            <td>{donor.number}</td>
            <td>{donor.address}</td>
-           <td>12/16/2020</td>
+           <td>{donor.bloodGroup}</td>
            <td>{donor.donated}</td>
+           <td>{donor.date}</td>
            </tr>
            ))}
           </tbody>

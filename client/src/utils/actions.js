@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { redirect } from "react-router-dom";
 import { customFetchBloodbank, customFetchDonor } from "./helper";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export const DonorRegisterAction = async ({ request }) => {
   const formData = await request.formData();
