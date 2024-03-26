@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../BanksComponents/Navbar";
 import { Outlet } from "react-router-dom";
 import LeftSidebar from "../BanksComponents/LeftSidebar";

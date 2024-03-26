@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import OpacityOutlinedIcon from "@mui/icons-material/OpacityOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 
 const LeftSidebar = () => {
+  const data = useLoaderData();
   return (
     <div className=" h-full w-full flex flex-col  items-center border-r-2 border-grey-400">
       <div className=" flex items-center h-1/6 w-full justify-center">
         <h1 className=" text-3xl font-semibold capitalize">
-          tata main hospital
+         {data.bloodBank.name}
         </h1>
       </div>
 
