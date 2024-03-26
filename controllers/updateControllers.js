@@ -3,6 +3,7 @@ import BloodBank from "../models/BloodBank.js";
 import Donor from "../models/Donor.js";
 import { hashPassword } from "../utils/password.js";
 import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
+import { getCoordinates } from "./location.js";
 
 
 export const getDonors = async (req, res) => {
@@ -197,3 +198,15 @@ export const createDonor = async (req, res) => {
     }
       
   };
+
+
+  export const getAddress = async (req, res) => {
+    const { address } = req.body;
+    try {
+        const coordinates = await getCoordinates(address);
+        res.status(StatusCodes.OK).json( coordinates);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Failed to fetch coordinates' });
+    }
+  }
