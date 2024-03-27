@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { redirect } from "react-router-dom";
 import { customFetchBloodbank, customFetchDonor } from "./helper";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export const DonorRegisterAction = async ({ request }) => {
   const formData = await request.formData();
@@ -48,6 +48,12 @@ export const DonorLoginAction = async ({ request }) => {
   }
 };
 
+
+
+// blood bank actions
+
+
+
 export const BBRegisterAction = async ({ request }) => {
   const formData = await request.formData();
 
@@ -55,8 +61,8 @@ export const BBRegisterAction = async ({ request }) => {
   console.log(data);
   try {
     const response = await customFetchBloodbank.post("/auth/register", data);
-    toast.success("A verification code has been sended to your email");
-    return redirect("/blood-bank/dashboard");
+    toast.success("registers successfully");
+    return redirect("/blood-bank/login");
   } catch (error) {
     const errorMessage =
       error?.response?.data?.error?.message ||

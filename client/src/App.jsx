@@ -52,11 +52,16 @@ const router = createBrowserRouter([
         path: "blood-bank/dashboard",
         element: <BloodBankDashboard />,
         loader: BBDashboardLoader,
+<<<<<<< HEAD
+=======
+        
+>>>>>>> eb5e8d08ed60d9a8054422bb47c4f9e06e19d624
         children: [
           {
             index: true,
             element: <Donors />,
             loader: BBDashboardLoader,
+          
           },
           {
             path: "inventory",
