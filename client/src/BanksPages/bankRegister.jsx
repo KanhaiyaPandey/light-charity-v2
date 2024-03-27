@@ -48,7 +48,15 @@ const BankRegister = () => {
 
             <FormInput type="text" label="address" name="address" size="w-full"/>
           </div>
+<<<<<<< HEAD
           <FormInput type="text" label="address" name="address" size="w-full" />
+
+          <button type="button" onClick={getLocation}>
+            Get Location
+          </button>
+=======
+       
+>>>>>>> eb5e8d08ed60d9a8054422bb47c4f9e06e19d624
           <div className="mt-6">
             <SubmitBtn text="Register" />
           </div>
