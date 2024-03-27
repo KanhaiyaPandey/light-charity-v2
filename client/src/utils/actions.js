@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 export const DonorRegisterAction = async ({ request }) => {
   const formData = await request.formData();
+
   const data = Object.fromEntries(formData);
   try {
     const response = await customFetchDonor.post("/auth/register", data);
@@ -12,8 +13,7 @@ export const DonorRegisterAction = async ({ request }) => {
     return redirect("/donor/register/verification");
   } catch (error) {
     const errorMessage =
-       error?.response?.data?.msg ||
-      "something went wrong ! try again later";
+      error?.response?.data?.msg || "something went wrong ! try again later";
     toast.error(errorMessage);
     return null;
   }
@@ -27,8 +27,7 @@ export const DonorRegisterVerificationAction = async ({ request }) => {
     toast.success("Registerd Successfully");
     return redirect("/donor/dashboard");
   } catch (error) {
-    const errorMessage =
-     error?.response?.data?.msg || "Otp is incorrect";
+    const errorMessage = error?.response?.data?.msg || "Otp is incorrect";
     toast.error(errorMessage);
     return null;
   }
@@ -51,7 +50,9 @@ export const DonorLoginAction = async ({ request }) => {
 
 export const BBRegisterAction = async ({ request }) => {
   const formData = await request.formData();
+
   const data = Object.fromEntries(formData);
+  console.log(data);
   try {
     const response = await customFetchBloodbank.post("/auth/register", data);
     toast.success("A verification code has been sended to your email");
@@ -64,7 +65,6 @@ export const BBRegisterAction = async ({ request }) => {
     return null;
   }
 };
-
 
 export const BBLoginAction = async ({ request }) => {
   const formData = await request.formData();
@@ -81,17 +81,17 @@ export const BBLoginAction = async ({ request }) => {
   }
 };
 
-export const addDonorAction = async ({request}) =>{
-   const formData = await request.formData();
-   const data = Object.fromEntries(formData);
+export const addDonorAction = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
 
-   try{
-       await customFetchBloodbank.post("/update/create-donor", data);
-       toast.success("Donor Added successful");
-       return redirect("/blood-bank/dashboard/add-donor");
-   }catch (error) {
+  try {
+    await customFetchBloodbank.post("/update/create-donor", data);
+    toast.success("Donor Added successful");
+    return redirect("/blood-bank/dashboard/add-donor");
+  } catch (error) {
     console.log(error);
     toast.error(error?.response?.data?.msg);
     return error;
-   }
-}
+  }
+};

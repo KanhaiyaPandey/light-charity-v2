@@ -1,11 +1,27 @@
 import { Form, Link } from "react-router-dom";
 import FormInput from "../components/FromInput";
 import SubmitBtn from "../components/SubmitBtn";
-
-
-
+import { useState } from "react";
 
 const BankRegister = () => {
+  const [location, setLocation] = useState(null);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ latitude, longitude });
+          console.log(location);
+        },
+        (error) => {
+          console.error(error.message);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
+
   return (
     <div
       className="hero min-h-screen "
@@ -31,6 +47,10 @@ const BankRegister = () => {
             <FormInput type="password" label="password" name="password" />
           </div>
           <FormInput type="text" label="address" name="address" size="w-full" />
+
+          <button type="button" onClick={getLocation}>
+            Get Location
+          </button>
           <div className="mt-6">
             <SubmitBtn text="Register" />
           </div>
